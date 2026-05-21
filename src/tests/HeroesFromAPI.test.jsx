@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { http, HttpResponse } from "msw";
 import { afterAll, afterEach, beforeAll, expect } from "vitest";
-import { server } from "../mocks/server";
+import { server } from "./moks/server";
 import HeroesFromAPI from "./lab/Heroes";
 
 describe("HeroesFromAPI component", () => {
@@ -32,9 +32,9 @@ describe("HeroesFromAPI component", () => {
 
   test("should render a list of heroes after successful API fetch", async () => {
     let heroes = [
-      { id: 1, name: "super man", strength: 9 },
-      { id: 2, name: "bat man", strength: 15 },
-      { id: 3, name: "spider man", strength: 20 },
+      { id: 1, name: "Tanjiro", strength: 9 },
+      { id: 2, name: "Naruto", strength: 15 },
+      { id: 3, name: "Goku", strength: 20 },
     ];
 
     server.use(
@@ -48,11 +48,9 @@ describe("HeroesFromAPI component", () => {
     let listItems = await screen.findAllByRole("listitem");
     expect(screen.getByRole("list")).toBeInTheDocument();
     expect(listItems).toHaveLength(heroes.length);
-    expect(listItems[0]).toHaveTextContent("super man: power=9 (weak)");
-    expect(listItems[1]).toHaveTextContent("bat man: power=15 (strong)");
-    expect(listItems[2]).toHaveTextContent(
-      "spider man: power=20 (unbelievable)",
-    );
+    expect(listItems[0]).toHaveTextContent("Tanjiro: power=9 (weak)");
+    expect(listItems[1]).toHaveTextContent("Naruto: power=15 (strong)");
+    expect(listItems[2]).toHaveTextContent("Goku: power=20 (unbelievable)");
   });
 
   test.skip("should display an error message when API request fails with status 500", async () => {
